@@ -23,7 +23,7 @@ import com.wormchaos.util.exception.UnoException;
 
 /**
  * 〈一句话功能简述〉<br> 
- * 〈功能详细描述〉
+ * 异常处理
  *
  * @author 13071604
  * @see [相关类/方法]（可选）

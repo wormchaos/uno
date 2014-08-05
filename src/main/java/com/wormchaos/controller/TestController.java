@@ -32,11 +32,34 @@ import com.wormchaos.util.exception.UnoException;
 @Controller
 public class TestController {
     
+    /**
+     * 
+     * 功能描述: <br>
+     * 测试接口是否调通
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
     @RequestMapping("test")
     public void test(HttpServletRequest request, HttpServletResponse response) throws IOException{
         response.getWriter().write("it's a test interface !");
     }
     
+    /**
+     * 
+     * 功能描述: <br>
+     * 测试异常处理
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
     @RequestMapping("exception")
     public void exception(HttpServletRequest request, HttpServletResponse response) throws IOException, UnoException{
         throw new UnoException(UnoErrConstants.DEFAULT_ERROR);
