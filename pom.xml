@@ -193,6 +193,6 @@
     </dependency> 
   </dependencies>  
   <build> 
-    <finalName>blhTools</finalName> 
+    <finalName>uno</finalName> 
   </build> 
 </project>

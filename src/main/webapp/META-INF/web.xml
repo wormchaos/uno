@@ -8,7 +8,6 @@
 	version="3.0">
 	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <!-- 应用上下文配置文件 -->
         <param-value>/WEB-INF/spring-servlet.xml</param-value>
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
   	</context-param>
@@ -24,6 +23,8 @@
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
 	<!-- 统一字符编码为UTF-8 -->
@@ -39,9 +40,9 @@
 		<filter-name>setcharacter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<welcome-file-list>
-		<welcome-file>index.do</welcome-file>
-	</welcome-file-list>
-	
+		
+	<error-page>
+		<error-code>404</error-code> 
+		<location>page_404.do</location> 
+	</error-page>
 </web-app>

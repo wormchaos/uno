@@ -1,8 +1,8 @@
 /*
  * Copyright (C), 2002-2014, 苏宁易购电子商务有限公司
- * FileName: TestController.java
+ * FileName: PageController.java
  * Author:   13071604
- * Date:     2014-8-5 下午2:24:26
+ * Date:     2014-8-5 下午3:01:12
  * Description: //模块目的、功能描述      
  * History: //修改记录
  * <author>      <time>      <version>    <desc>
@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since [产品/模块版本] （可选）
  */
 @Controller
-public class TestController {
+@RequestMapping("page")
+public class PageController {
     
-    @RequestMapping("test")
-    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    @RequestMapping("page_404")
+    public void error404(HttpServletRequest request, HttpServletResponse response) throws IOException{
         response.getWriter().write("it's a test interface !");
     }
+
 }

@@ -94,8 +94,7 @@
 		p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/"
 		p:suffix=".jsp" />
 	
-	<!-- 后期添加异常处理
+	<!-- 异常处理 -->
     <bean id="exceptionResolver" class="com.wormchaos.handler.ExceptionHandler"/>  
-	<bean class="com.wormchaos.process.InstantiationTracingBeanPostProcessor" />
-	-->
+	
 </beans>

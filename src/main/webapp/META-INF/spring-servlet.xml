@@ -9,16 +9,12 @@
       http://www.springframework.org/schema/context/spring-context.xsd
       http://www.springframework.org/schema/mvc
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-     <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->
-     <mvc:annotation-driven />
-     <!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
-     <context:component-scan base-package="com.wormchaos" />
-     <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
-     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+	
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.wormchaos"/>
+	 
 	<mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>  
 	<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
 	<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>
-
-	<mvc:view-controller path="/" view-name="index"/>
 
 </beans>
