@@ -20,5 +20,5 @@ package com.wormchaos.util.constant;
  */
 public class UnoConfigConstants {
     
-    public static final String HTTP_404_PAGE = "page_404";
+    public static final String DEFAULT_EXCEPTION_PAGE = "exception";
 }

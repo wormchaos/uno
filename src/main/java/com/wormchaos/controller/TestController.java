@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wormchaos.util.constant.UnoErrConstants;
+import com.wormchaos.util.exception.UnoException;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -32,5 +35,10 @@ public class TestController {
     @RequestMapping("test")
     public void test(HttpServletRequest request, HttpServletResponse response) throws IOException{
         response.getWriter().write("it's a test interface !");
+    }
+    
+    @RequestMapping("exception")
+    public void exception(HttpServletRequest request, HttpServletResponse response) throws IOException, UnoException{
+        throw new UnoException(UnoErrConstants.DEFAULT_ERROR);
     }
 }
