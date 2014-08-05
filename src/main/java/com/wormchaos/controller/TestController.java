@@ -31,6 +31,7 @@ public class TestController {
     
     @RequestMapping("test")
     public void test(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        // test
         response.getWriter().write("it's a test interface !");
     }
 }
