@@ -12,6 +12,7 @@ package com.wormchaos.util;
 
 import java.security.interfaces.RSAPublicKey;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.wormchaos.util.tool.RSACoder;
@@ -26,6 +27,9 @@ import com.wormchaos.util.tool.RSACoder;
  */
 public class UserUtils {
 
+    /**
+     * key - token; value - userId
+     */
     private static Map<String, String> tokenMap = new ConcurrentHashMap<String, String>();
 
     /**
@@ -40,9 +44,10 @@ public class UserUtils {
      * @since [产品/模块版本](可选)
      */
     public static String createToken(String userId) throws Exception {
-        // TODO 多线程
+        // TODO 如果用户在已登录状态下再次调用此接口,可能会出现BUG
         Map<String, Object> keyMap = RSACoder.initKey();
         String token = RSACoder.encryptByPublicKey(userId, RSACoder.getPublicKey(keyMap));
+        tokenMap.put(token, userId);
         return token;
     }
 
@@ -60,4 +65,31 @@ public class UserUtils {
         // IF none, return null
         return tokenMap.get(token);
     }
+
+    /**
+     * 
+     * 功能描述: <br>
+     * 删除该token对应用户的所有登录信息
+     * 
+     * @param token
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    public static boolean deleteToken(String token) {
+        try {
+            String userId = tokenMap.get(token);
+            for (Entry<String, String> entry : tokenMap.entrySet()) {
+                if (entry.getValue().equals(userId)) {
+                    tokenMap.remove(entry.getKey());
+                }
+            }
+            return true;
+
+        } catch (Exception e) {
+            // 抛出异常则报错
+        }
+        return false;
+    }
+
 }
