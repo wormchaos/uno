@@ -9,6 +9,8 @@
  */
 package com.wormchaos.handler;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -54,10 +56,20 @@ public class ExceptionHandler implements HandlerExceptionResolver{
             if (StringUtils.isBlank(errorMsg)) {
                 errorMsg = UnoErrConstants.ERROR_MSG_MAPPING.get(errorCode);
             }
+            
+            // 如果错误是用户需要登录，则重定向
+            if(errorCode.equals(UnoErrConstants.USER_NEED_LOGIN)){
+                try {
+                    response.sendRedirect("/uno/login.do");
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
+            
 
         }
         model.addObject("errorMsg", errorMsg);
         return model;
     }
-
+    
 }

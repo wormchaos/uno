@@ -17,11 +17,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wormchaos.util.constant.UnoConstants;
+import com.wormchaos.util.UserUtils;
+import com.wormchaos.util.exception.UnoException;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -99,11 +99,13 @@ public class LoginCheckFilter implements Filter {
      * @since [产品/模块版本](可选)
      */
     private boolean isLogin(HttpServletRequest httpRequest){
-        Cookie[] cookies = httpRequest.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals(UnoConstants.TOKEN)){
+        try {
+            String userId = UserUtils.queryUserId(httpRequest);
+            if(null != userId){
                 return true;
             }
+        } catch (UnoException e) {
+            e.printStackTrace();
         }
         return false;
     }

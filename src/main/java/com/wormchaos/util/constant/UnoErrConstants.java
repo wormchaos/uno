@@ -38,6 +38,11 @@ public class UnoErrConstants {
     public static final String USER_ALREADY_LOGIN = "U3002";
 
     /**
+     * 用户需要重新登录
+     */
+    public static final String USER_NEED_LOGIN = "U3003";
+
+    /**
      * 错误码消息映射
      */
     public static final Map<String, String> ERROR_MSG_MAPPING = new HashMap<String, String>() {
@@ -49,6 +54,7 @@ public class UnoErrConstants {
             put(DEFAULT_ERROR, "系统异常");
             put(USER_TOKEN_ERROR, "用户鉴权异常");
             put(USER_ALREADY_LOGIN, "用户已登录");
+            put(USER_NEED_LOGIN, "用户需要重新登录");
         }
     };
 }

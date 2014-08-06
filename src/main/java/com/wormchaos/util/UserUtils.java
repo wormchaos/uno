@@ -14,7 +14,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import com.wormchaos.bean.UserStatusBean;
+import com.wormchaos.util.constant.UnoConstants;
 import com.wormchaos.util.constant.UnoErrConstants;
 import com.wormchaos.util.exception.UnoException;
 import com.wormchaos.util.tool.RSACoder;
@@ -61,6 +65,30 @@ public class UserUtils {
         tokenMap.put(token, new UserStatusBean(userId));
         return token;
     }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 判断用户是否登录
+     * 如果登录，返回userId
+     * 如果没登录，抛出异常（异常处理控制跳转重定向）
+     *
+     * @param request
+     * @return
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    public static String queryUserId(HttpServletRequest request) throws UnoException {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals(UnoConstants.TOKEN)){
+                return queryUserId(cookie.getValue());
+            }
+        }
+        // TODO 
+        throw new UnoException(UnoErrConstants.USER_NEED_LOGIN);
+    }
 
     /**
      * 
@@ -86,6 +114,8 @@ public class UserUtils {
             // 删除token
             logout(token);
         } else {
+            // 更新时间戳
+            bean.setTimestamp(new Date().getTime());
             return token;
         }
 
