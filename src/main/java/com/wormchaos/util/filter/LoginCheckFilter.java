@@ -21,6 +21,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wormchaos.util.constant.UnoConstants;
+
 /**
  * 〈一句话功能简述〉<br>
  * 〈功能详细描述〉
@@ -32,8 +34,6 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginCheckFilter implements Filter {
 
     private static final String LOGIN_URI = "/uno/login";
-
-    private static final String COOKIE_ID = "userId";
 
     /*
      * (non-Javadoc)
@@ -101,8 +101,7 @@ public class LoginCheckFilter implements Filter {
     private boolean isLogin(HttpServletRequest httpRequest){
         Cookie[] cookies = httpRequest.getCookies();
         for (Cookie cookie : cookies) {
-            if(cookie.getName().equals(COOKIE_ID)){
-                // TODO 检查是否是合法的用户
+            if(cookie.getName().equals(UnoConstants.TOKEN)){
                 return true;
             }
         }

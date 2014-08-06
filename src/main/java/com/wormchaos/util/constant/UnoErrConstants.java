@@ -22,8 +22,20 @@ import java.util.Map;
  */
 public class UnoErrConstants {
 
-    // 系统异常
+    /**
+     * 系统异常
+     */
     public static final String DEFAULT_ERROR = "U0001";
+
+    /**
+     * 用户鉴权异常
+     */
+    public static final String USER_TOKEN_ERROR = "U3001";
+
+    /**
+     * 用户已登录
+     */
+    public static final String USER_ALREADY_LOGIN = "U3002";
 
     /**
      * 错误码消息映射
@@ -35,6 +47,8 @@ public class UnoErrConstants {
         private static final long serialVersionUID = -1299431555757561464L;
         {
             put(DEFAULT_ERROR, "系统异常");
+            put(USER_TOKEN_ERROR, "用户鉴权异常");
+            put(USER_ALREADY_LOGIN, "用户已登录");
         }
     };
 }
