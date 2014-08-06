@@ -32,7 +32,7 @@ public interface JdbcClient {
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    <T> List<T> queryBeanListByMap(Map<String, Object> map);
+    <T> List<T> queryBeanListByMap(String db, Map<String, Object> params, Class<T> clazz);
     
     /**
      * 
