@@ -38,6 +38,7 @@ import sun.misc.BASE64Encoder;
  * @version 1.0
  * @since 1.0
  */
+@SuppressWarnings("restriction")
 public class RSACoder {
     public static final String KEY_ALGORITHM = "RSA";
     public static String SIGNATURE_ALGORITHM = "SHA1withRSA";

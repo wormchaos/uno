@@ -1,7 +1,6 @@
 /*
- * Copyright (C), 2002-2014, 苏宁易购电子商务有限公司
  * FileName: ExceptionHandler.java
- * Author:   13071604
+ * Author:   wormchaos
  * Date:     2014-8-5 下午2:35:02
  * Description: //模块目的、功能描述      
  * History: //修改记录
@@ -25,7 +24,7 @@ import com.wormchaos.util.exception.UnoException;
  * 〈一句话功能简述〉<br> 
  * 异常处理
  *
- * @author 13071604
+ * @author wormchaos
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */

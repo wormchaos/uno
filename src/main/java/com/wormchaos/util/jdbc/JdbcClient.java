@@ -1,7 +1,6 @@
 /*
- * Copyright (C), 2002-2014, 苏宁易购电子商务有限公司
  * FileName: JdbcClient.java
- * Author:   13071604
+ * Author:   wormchaos
  * Date:     2014-8-5 下午8:20:26
  * Description: //模块目的、功能描述      
  * History: //修改记录
@@ -15,7 +14,7 @@ import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
- * 〈功能详细描述〉
+ * JDBC封装
  *
  * @author 13071604
  * @see [相关类/方法]（可选）
