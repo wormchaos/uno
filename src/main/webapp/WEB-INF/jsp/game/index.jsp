@@ -35,8 +35,8 @@
 		<div id="player3">5</div>
 	</div>
 	<div id="field">
-		<div id="cemetery">ÆúÅÆ18</div>
-		<div id="deck">ÅÆ¶Ñ81</div>
+		<div id="cemetery">${cemeteryNum}张</div>
+		<div id="deck">${deckListNum}张</div>
 	</div>
 	<div id="console">
 		<div id="cards">
@@ -45,8 +45,8 @@
 			</c:forEach>
 		</div>
 		<div id="command">
-		<a href="javascript:void(0);">确定</a>
-		<a href="javascript:void(0);">取消</a>
+			<a href="javascript:void(0);">确定</a>
+			<a href="javascript:void(0);">取消</a>
 		</div>
 	</div>
 </div>

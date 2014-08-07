@@ -22,4 +22,32 @@ public class UnoConstants {
      * 用户鉴权token
      */
     public static final String TOKEN = "token";
+    
+    /**
+     * 空string
+     */
+    public static final String EMPTY_STR = "";
+    
+    /**
+     * successFlg
+     */
+    public static final String SUCCESS_FLG = "successFlg";
+    
+    /**
+     * errorCode
+     */
+    public static final String ERROR_CODE = "errorCode";
+    
+    /**
+     * errorMsg
+     */
+    public static final String ERROR_MSG = "errorMsg";
+    /**
+     * 成功返回码
+     */
+    public static final int SUCCESS = 1;
+    /**
+     * 失败返回码
+     */
+    public static final int FAILED = 0;
 }

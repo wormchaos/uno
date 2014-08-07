@@ -20,36 +20,127 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wormchaos.dto.CardBean;
+import com.wormchaos.dto.GameStateBean;
 import com.wormchaos.util.CardUtils;
 import com.wormchaos.util.GameStateUtils;
+import com.wormchaos.util.GsonView;
 import com.wormchaos.util.UserUtils;
 import com.wormchaos.util.exception.UnoException;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈功能详细描述〉
- *
+ * 
  * @author wormchaos
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
 @Controller
 @RequestMapping("game")
-public class GameController {
-    
+public class GameController extends BaseController{
+
     private static final String INDEX_PAGE = "game/index";
-    
+
+    /**
+     * 
+     * 功能描述: <br>
+     * 进入游戏页面
+     * 通过cookie获得用户id并取得卡牌信息
+     *
+     * @param request
+     * @param response
+     * @param playerNum
+     * @return
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
     @RequestMapping("index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value="playerNum", required = false) String playerNum) throws UnoException{
+            @RequestParam(value = "playerNum", required = false) String playerNum) throws UnoException {
         ModelAndView model = new ModelAndView(INDEX_PAGE);
         // String userId = UserUtils.queryUserId(request);
-        // TODO 
+        // TODO
         // gameId = queryGameIdByUser
         Long gameId = 1L;
         GameStateUtils.initGameState(gameId);
-        List<CardBean> cardList = CardUtils.draw(gameId, 4);
+        List<CardBean> cardList = CardUtils.draw(gameId, 6);
+        int cardListNum = cardList.size();
+
         model.addObject("cardList", cardList);
+        List<CardBean> cemeteryList = GameStateUtils.queryGameState(gameId).getCemeteryList();
+        model.addObject("deckListNum", GameStateUtils.queryGameState(gameId).getDeckList().size());
+        model.addObject("cemeteryNum", cemeteryList.size());
+        // model.addObject("lastCemetery", cemeteryList.get(cemeteryList.size() - 1));
+        model.addObject("deckNum", cardListNum);
         return model;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 当前场上情况
+     *
+     * @param request
+     * @param response
+     * @param gameId
+     * @return
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping("ajax/fieldState")
+    public GsonView queryGameState(HttpServletRequest request, HttpServletResponse response,
+            @RequestParam(value = "gameId", required = false) String gameId) throws UnoException {
+        Long gId = null;
+        try {
+            gId = Long.parseLong(gameId);
+        } catch (Exception e) {
+            // 抛出异常
+        }
+        GsonView gv = new GsonView();
+        GameStateBean gameState = GameStateUtils.queryGameState(gId);
+
+        gv.addStaticAttribute("deckListNum", gameState.getDeckList().size());
+        gv.addStaticAttribute("cemeteryNum", gameState.getCemeteryList().size());
+        gv.addStaticAttribute("lastCemetery", gameState.getLastCard());
+        gv.addStaticAttribute("players", gameState.getTurnInPos());
+        
+        // 上面是整个场地的情况
+        // 下面是对当前用户的信息
+        String userId = UserUtils.queryUserId(request);
+        // TODO 根据用户Id获取当前手牌信息
+        
+        return gv;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 创建游戏
+     *
+     * @param request
+     * @param response
+     * @param gameId
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping("createGame")
+    public GsonView createGame(HttpServletRequest request, HttpServletResponse response,
+            @RequestParam(value = "gameId", required = false) String gameId) throws UnoException {
+        GsonView gv = createGson();
+        // TODO 数据库操作创建游戏
+        // 如果失败，把异常返回
+        return gv;
+    }
+    
+    @RequestMapping("ajax/checkGameStart")
+    public GsonView checkGameStart(HttpServletRequest request, HttpServletResponse response,
+            @RequestParam(value = "roomId", required = false) String roomId) throws UnoException {
+        GsonView gv = createGson();
+        // TODO 数据库获取当前是否游戏开始
+        // 如果开始，返回默认的gv，否则返回successFlg=0
+        return gv;
     }
 }

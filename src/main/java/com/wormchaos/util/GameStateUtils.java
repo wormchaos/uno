@@ -9,6 +9,7 @@
  */
 package com.wormchaos.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,9 +45,9 @@ public class GameStateUtils {
     public static void initGameState(Long gameId) {
         GameStateBean gameBean = new GameStateBean();
         List<CardBean> cardList = CardUtils.shuffleDeck(gameId, null);
-        gameBean.setCardList(cardList);
+        gameBean.setDeckList(cardList);
         gameBean.setTurnInPos(1);
-        gameBean.setCardNum(cardList.size());
+        gameBean.setCemeteryList(new ArrayList<CardBean>());
         GameStateUtils.gameState.put(gameId, gameBean);
     }
     

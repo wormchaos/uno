@@ -29,7 +29,7 @@ import com.wormchaos.dto.enu.CardName;
  * @since [产品/模块版本] （可选）
  */
 public class CardUtils {
-    
+
     private static List<CardBean> cardList;
 
     /**
@@ -57,21 +57,21 @@ public class CardUtils {
                 }
             }
         }
-        
+
     }
 
     /**
      * 
      * 功能描述: <br>
      * 牌组洗牌
-     *
+     * 
      * @param gameId
      * @param extendCards
      * @return
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    public static List<CardBean> shuffleDeck(Long gameId, List<CardBean> extendCards) {
+    public static List<CardBean> shuffleDeck(Long gameId, List<CardBean> cemeteryCards) {
         if (null == cardList) {
             synchronized (CardUtils.class) {
                 if (null == cardList) {
@@ -79,61 +79,106 @@ public class CardUtils {
                 }
             }
         }
-        
-        if(!CollectionUtils.isEmpty(extendCards)){
-            // bean方法里有equals匹配
-            cardList.removeAll(extendCards);            
+
+        if (!CollectionUtils.isEmpty(cemeteryCards)) {
+            // 如果是从弃牌堆
+            GameStateUtils.queryGameState(gameId).setLastCard(cemeteryCards.get(cemeteryCards.size() - 1));
+            // 洗牌
+            Collections.shuffle(cemeteryCards);
+            // 清空墓地牌
+            GameStateUtils.queryGameState(gameId).setCemeteryList(new ArrayList<CardBean>());
+            return cemeteryCards;
         }
+        // TODO shuffle
         // 洗牌
         Collections.shuffle(cardList);
         return cardList;
     }
-    
+
     /**
      * 
      * 功能描述: <br>
      * 抽一张
-     *
+     * 
      * @param gameId
      * @return
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    public static List<CardBean> draw(Long gameId){
+    public static List<CardBean> draw(Long gameId) {
         GameStateBean gameState = GameStateUtils.queryGameState(gameId);
-        if(null == gameState){
+        if (null == gameState) {
             // TODO 抛出异常
             return null;
         }
-        List<CardBean> cards = gameState.getCardList();
+        List<CardBean> cards = gameState.getDeckList();
         // 如果牌堆空则洗牌
-        if(cards.size() == 0){
+        if (cards.size() == 0) {
             // TODO 从所有人手上获取卡信息
             List<CardBean> extendCards = null;
             CardUtils.shuffleDeck(gameId, extendCards);
         }
         CardBean card = cards.get(0);
+        // 取出卡
         cards.remove(0);
-        ArrayList<CardBean> list = new ArrayList<CardBean>();
+        List<CardBean> list = new ArrayList<CardBean>();
         list.add(card);
         return list;
     }
-    
+
     /**
      * 
      * 功能描述: <br>
      * 抽N张
-     *
+     * 
      * @param gameId
      * @return
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    public static List<CardBean> draw(Long gameId, int times){
+    public static List<CardBean> draw(Long gameId, int times) {
         List<CardBean> cards = new ArrayList<CardBean>();
         for (int i = 0; i < times; i++) {
             cards.add(draw(gameId).get(0));
         }
         return cards;
+    }
+
+    /**
+     * 
+     * 功能描述: <br>
+     * 扔出一张卡牌进弃牌堆
+     * 
+     * @param cardId
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    public static void throwCard(Long gameId, int cardId){
+        GameStateBean gameState = GameStateUtils.queryGameState(gameId);
+        CardBean cardBean = queryCardById(cardId);
+        // 添加到弃牌堆
+        gameState.getCemeteryList().add(cardBean);
+        // 把此牌设置为弃牌堆最后一张
+        gameState.setLastCard(cardBean);
+        // TODO 如果此卡是万能卡，需要变色
+    }
+
+    /**
+     * 
+     * 功能描述: <br>
+     * 根据卡号查询卡牌
+     *
+     * @param cardId
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    public static CardBean queryCardById(int cardId) {
+        for (CardBean cardBean : cardList) {
+            if(cardBean.getCardId() == cardId){
+                return cardBean;
+            }
+        }
+        return null;
     }
 }

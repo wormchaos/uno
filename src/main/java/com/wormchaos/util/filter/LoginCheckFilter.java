@@ -54,7 +54,8 @@ public class LoginCheckFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         // 如果不是登录页面则判断是否登录
         if(isNotLoginPage(httpRequest)){
-            if(isLogin(httpRequest)){
+            //if(isLogin(httpRequest)){
+            if(true){
                 chain.doFilter(httpRequest, httpResponse);
             }else{
                 // 重定向到登录页面

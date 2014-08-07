@@ -32,14 +32,24 @@ public class GameStateBean implements Serializable{
     private int turnInPos;
     
     /**
-     * 牌堆的牌
+     * 卡牌堆
      */
-    private List<CardBean> cardList;
+    private List<CardBean> deckList;
     
     /**
-     * 卡牌数
+     * 弃牌堆
      */
-    private int cardNum;
+    private List<CardBean> cemeteryList;
+    
+    /**
+     * 弃牌堆最后一张牌
+     */
+    private CardBean lastCard;
+    
+    /**
+     * 每个玩家的手牌数
+     */
+    private Integer[] cardsNum;
 
     /**
      * @return the turnInPos
@@ -56,31 +66,59 @@ public class GameStateBean implements Serializable{
     }
 
     /**
-     * @return the cardList
+     * @return the deckList
      */
-    public List<CardBean> getCardList() {
-        return cardList;
+    public List<CardBean> getDeckList() {
+        return deckList;
     }
 
     /**
-     * @param cardList the cardList to set
+     * @param deckList the deckList to set
      */
-    public void setCardList(List<CardBean> cardList) {
-        this.cardList = cardList;
+    public void setDeckList(List<CardBean> deckList) {
+        this.deckList = deckList;
     }
 
     /**
-     * @return the cardNum
+     * @return the cemeteryList
      */
-    public int getCardNum() {
-        return cardNum;
+    public List<CardBean> getCemeteryList() {
+        return cemeteryList;
     }
 
     /**
-     * @param cardNum the cardNum to set
+     * @param cemeteryList the cemeteryList to set
      */
-    public void setCardNum(int cardNum) {
-        this.cardNum = cardNum;
+    public void setCemeteryList(List<CardBean> cemeteryList) {
+        this.cemeteryList = cemeteryList;
+    }
+
+    /**
+     * @return the cardsNum
+     */
+    public Integer[] getCardsNum() {
+        return cardsNum;
+    }
+
+    /**
+     * @param cardsNum the cardsNum to set
+     */
+    public void setCardsNum(Integer[] cardsNum) {
+        this.cardsNum = cardsNum;
+    }
+
+    /**
+     * @return the lastCard
+     */
+    public CardBean getLastCard() {
+        return lastCard;
+    }
+
+    /**
+     * @param lastCard the lastCard to set
+     */
+    public void setLastCard(CardBean lastCard) {
+        this.lastCard = lastCard;
     }
     
 }
