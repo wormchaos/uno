@@ -15,38 +15,57 @@ import com.wormchaos.dto.enu.CardColor;
 import com.wormchaos.dto.enu.CardName;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈功能详细描述〉
- *
+ * 
  * @author wormchaos
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public class CardBean implements Serializable{
-    
+public class CardBean implements Serializable {
+
     /**
      */
     private static final long serialVersionUID = -1920995063675132246L;
-    
-    public CardBean(){
-        
+
+    public CardBean() {
+
     }
-    
-    public CardBean(CardName cardName, CardColor cardColor){
+
+    public CardBean(int cardId, CardName cardName, CardColor cardColor) {
+        this.cardId = cardId;
         this.cardName = cardName;
         this.cardColor = cardColor;
     }
-    
 
     /**
-     * 卡片名字，后期用枚举
+     * id，唯一标识码
+     */
+    private int cardId;
+
+    /**
+     * 枚举
      */
     private CardName cardName;
-    
+
     /**
      * 卡片颜色 (枚举)
      */
     private CardColor cardColor;
+
+    /**
+     * 重写比较
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if ((obj instanceof CardBean) && obj != null) {
+            CardBean card = (CardBean) obj;
+            if(card.getCardId() == this.cardId){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * @return the cardName
@@ -75,5 +94,19 @@ public class CardBean implements Serializable{
     public void setCardColor(CardColor cardColor) {
         this.cardColor = cardColor;
     }
-    
+
+    /**
+     * @return the cardId
+     */
+    public int getCardId() {
+        return cardId;
+    }
+
+    /**
+     * @param cardId the cardId to set
+     */
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
+    }
+
 }
