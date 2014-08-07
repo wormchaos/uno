@@ -42,6 +42,23 @@ public class UnoException extends Exception{
         super(message, cause);
         this.errorCode = errorCode;
     }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 检查是否是Json错误
+     *
+     * @param errorCode
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    public static boolean isJsonException(String errorCode){
+        if (errorCode.startsWith("J")) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @return the errorCode

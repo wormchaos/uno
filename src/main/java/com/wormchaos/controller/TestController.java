@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wormchaos.util.constant.UnoErrConstants;
+import com.wormchaos.util.constant.UnoJsonErrConstants;
 import com.wormchaos.util.exception.UnoException;
 
 /**
@@ -62,5 +63,22 @@ public class TestController {
     @RequestMapping("exception")
     public void exception(HttpServletRequest request, HttpServletResponse response) throws IOException, UnoException{
         throw new UnoException(UnoErrConstants.DEFAULT_ERROR);
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 测试异常处理
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping("ajax/exception")
+    public void ajaxException(HttpServletRequest request, HttpServletResponse response) throws IOException, UnoException{
+        throw new UnoException(UnoJsonErrConstants.DEFAULT_ERROR);
     }
 }
