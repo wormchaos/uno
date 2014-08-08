@@ -37,7 +37,7 @@ public class Player {
     /**
      * 当前状态
      */
-    private Long state;
+    private Integer state;
 
     /**
      * @return the userId
@@ -84,14 +84,14 @@ public class Player {
     /**
      * @return the state
      */
-    public Long getState() {
+    public Integer getState() {
         return state;
     }
 
     /**
      * @param state the state to set
      */
-    public void setState(Long state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

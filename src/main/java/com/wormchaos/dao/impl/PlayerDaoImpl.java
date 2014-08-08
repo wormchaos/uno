@@ -44,11 +44,24 @@ public class PlayerDaoImpl implements PlayerDao {
         return player;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.wormchaos.dao.PlayerDao#queryListByMap(java.util.Map)
      */
     public List<Player> queryListByMap(Map<String, Object> params) {
         return jdbcClient.queryBeanListByMap(DB_NAME, params, Player.class);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.wormchaos.dao.PlayerDao#queryStateByUserId(java.lang.String)
+     */
+    public Integer queryStateByUserId(String userId) {
+        Player player = queryBeanByUserId(userId);
+        if (null == player) {
+            return null;
+        }
+        return player.getState();
     }
 
 }
