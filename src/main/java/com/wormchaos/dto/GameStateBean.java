@@ -29,7 +29,7 @@ public class GameStateBean implements Serializable{
     /**
      * 当前回合内玩家序号
      */
-    private int turnInPos;
+    private Integer turnInPos;
     
     /**
      * 卡牌堆
@@ -49,7 +49,7 @@ public class GameStateBean implements Serializable{
     /**
      * 每个玩家的手牌数
      */
-    private Integer[] cardsNum;
+    private List<PlayerBean> players;
 
     /**
      * @return the turnInPos
@@ -94,20 +94,6 @@ public class GameStateBean implements Serializable{
     }
 
     /**
-     * @return the cardsNum
-     */
-    public Integer[] getCardsNum() {
-        return cardsNum;
-    }
-
-    /**
-     * @param cardsNum the cardsNum to set
-     */
-    public void setCardsNum(Integer[] cardsNum) {
-        this.cardsNum = cardsNum;
-    }
-
-    /**
      * @return the lastCard
      */
     public CardBean getLastCard() {
@@ -119,6 +105,20 @@ public class GameStateBean implements Serializable{
      */
     public void setLastCard(CardBean lastCard) {
         this.lastCard = lastCard;
+    }
+
+    /**
+     * @return the players
+     */
+    public List<PlayerBean> getPlayers() {
+        return players;
+    }
+
+    /**
+     * @param players the players to set
+     */
+    public void setPlayers(List<PlayerBean> players) {
+        this.players = players;
     }
     
 }

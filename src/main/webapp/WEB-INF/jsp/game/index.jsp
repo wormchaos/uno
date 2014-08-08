@@ -30,9 +30,9 @@
 <div id="container">
 	<!-- player filed -->
 	<div id="players">
-		<div id="player1">3</div>
-		<div id="player2">2</div>
-		<div id="player3">5</div>
+		<c:forEach items="${players}" var="num">
+			<div id="player${num.index}">${num}</div>
+		</c:forEach>
 	</div>
 	<div id="field">
 		<div id="cemetery">${cemeteryNum}张</div>

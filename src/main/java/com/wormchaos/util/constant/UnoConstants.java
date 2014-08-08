@@ -9,6 +9,9 @@
  */
 package com.wormchaos.util.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -50,4 +53,19 @@ public class UnoConstants {
      * 失败返回码
      */
     public static final int FAILED = 0;
+    
+    /**
+     * 起始摸牌数
+     */
+    public static final int DEFAULT_DRAW = 6;
+
+    /**
+     * 事件 - 抽牌
+     */
+    public static final String EVENT_DRAW = "draw";
+
+    /**
+     * 事件 - 扔牌
+     */
+    public static final String EVENT_THROW = "use";
 }

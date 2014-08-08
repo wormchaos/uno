@@ -57,13 +57,13 @@ public class GameController extends BaseController{
      */
     @RequestMapping("index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "playerNum", required = false) String playerNum) throws UnoException {
+            @RequestParam(value = "playerNum", required = false) Integer playerNum) throws UnoException {
         ModelAndView model = new ModelAndView(INDEX_PAGE);
         // String userId = UserUtils.queryUserId(request);
         // TODO
         // gameId = queryGameIdByUser
         Long gameId = 1L;
-        GameStateUtils.initGameState(gameId);
+        GameStateUtils.initGameState(gameId, playerNum, null);
         List<CardBean> cardList = CardUtils.draw(gameId, 6);
         int cardListNum = cardList.size();
 
@@ -104,7 +104,7 @@ public class GameController extends BaseController{
         gv.addStaticAttribute("deckListNum", gameState.getDeckList().size());
         gv.addStaticAttribute("cemeteryNum", gameState.getCemeteryList().size());
         gv.addStaticAttribute("lastCemetery", gameState.getLastCard());
-        gv.addStaticAttribute("players", gameState.getTurnInPos());
+        gv.addStaticAttribute("players", gameState.getPlayers());
         
         // 上面是整个场地的情况
         // 下面是对当前用户的信息
@@ -128,9 +128,12 @@ public class GameController extends BaseController{
      */
     @RequestMapping("createGame")
     public GsonView createGame(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "gameId", required = false) String gameId) throws UnoException {
+            @RequestParam(value = "roomId", required = false) String roomId) throws UnoException {
         GsonView gv = createGson();
         // TODO 数据库操作创建游戏
+        // TODO 获取所有房间等待中玩家并把状态改为游戏中
+        // TODO 初始化gamestate状态
+        // TODO 所有玩家抽牌，并在gamestate里更新
         // 如果失败，把异常返回
         return gv;
     }

@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.wormchaos.dto.CardBean;
 import com.wormchaos.dto.GameStateBean;
+import com.wormchaos.dto.PlayerBean;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -32,7 +33,6 @@ public class GameStateUtils {
      */
     private static Map<Long, GameStateBean> gameState = new ConcurrentHashMap<Long, GameStateBean>();
 
-
     /**
      * 
      * 功能描述: <br>
@@ -42,16 +42,17 @@ public class GameStateUtils {
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    public static void initGameState(Long gameId) {
+    public static void initGameState(Long gameId, int playerNum, List<PlayerBean> players) {
         GameStateBean gameBean = new GameStateBean();
         List<CardBean> cardList = CardUtils.shuffleDeck(gameId, null);
         gameBean.setDeckList(cardList);
-        gameBean.setTurnInPos(1);
+        gameBean.setTurnInPos(0);
         gameBean.setCemeteryList(new ArrayList<CardBean>());
+        gameBean.setPlayers(players);
         GameStateUtils.gameState.put(gameId, gameBean);
     }
-    
-    public static GameStateBean queryGameState(Long gameId){
+
+    public static GameStateBean queryGameState(Long gameId) {
         return gameState.get(gameId);
     }
 
