@@ -10,13 +10,19 @@
 package com.wormchaos.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.gson.Gson;
+import com.wormchaos.bean.Player;
+import com.wormchaos.service.PlayerService;
+import com.wormchaos.util.GsonView;
 import com.wormchaos.util.constant.UnoErrConstants;
 import com.wormchaos.util.constant.UnoJsonErrConstants;
 import com.wormchaos.util.exception.UnoException;
@@ -30,7 +36,10 @@ import com.wormchaos.util.exception.UnoException;
  * @since [产品/模块版本] （可选）
  */
 @Controller
-public class TestController {
+public class TestController extends BaseController {
+    
+    @Autowired
+    PlayerService playerService;
     
     /**
      * 
@@ -80,5 +89,25 @@ public class TestController {
     @RequestMapping("ajax/exception")
     public void ajaxException(HttpServletRequest request, HttpServletResponse response) throws IOException, UnoException{
         throw new UnoException(UnoJsonErrConstants.DEFAULT_ERROR);
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 检查数据库是否正常
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping("checkDB")
+    public void checkDB(HttpServletRequest request, HttpServletResponse response) throws IOException, UnoException{
+        Long roomId = 1L;
+        List<Player> listByRoomId = playerService.queryListByRoomId(roomId);
+        String json = new Gson().toJson(listByRoomId);
+        response.getWriter().write(json);
     }
 }

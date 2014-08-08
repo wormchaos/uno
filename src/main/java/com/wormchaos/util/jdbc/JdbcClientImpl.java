@@ -9,7 +9,7 @@
  */
 package com.wormchaos.util.jdbc;
 
-import java.text.DateFormat;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,8 +42,8 @@ public class JdbcClientImpl implements JdbcClient {
      * @see com.wormchaos.util.jdbc.JdbcClient#queryBeanListByMap(java.util.Map)
      */
     public <T> List<T> queryBeanListByMap(String db, Map<String, Object> params, Class<T> clazz) {
-        String sql = createSQL(db, params);
-        return jdbcTemplate.queryForList(sql, clazz);
+        String sql = createSQL(db, params, clazz);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<T>(clazz));
     }
 
     /*
@@ -52,7 +55,7 @@ public class JdbcClientImpl implements JdbcClient {
         sql.append("select * from ").append(db);
         sql.append(" where ").append(keyName).append(" = ");
         sql.append("'").append(keyValue).append("'");
-        return jdbcTemplate.queryForObject(sql.toString(), clazz);
+        return jdbcTemplate.queryForObject(sql.toString(), rowMapper(clazz));
     }
 
     /*
@@ -65,13 +68,14 @@ public class JdbcClientImpl implements JdbcClient {
         sql.append("select * from ").append(db);
         sql.append(" where ").append(keyName).append(" = ");
         sql.append(keyValue);
-        return jdbcTemplate.queryForObject(sql.toString(), clazz);
+        return (T) jdbcTemplate.queryForObject(sql.toString(), rowMapper(clazz));
     }
 
     /**
      * 
      * 功能描述: <br>
      * 生成sql语句
+     * @param <T>
      *
      * @param db
      * @param params
@@ -79,9 +83,18 @@ public class JdbcClientImpl implements JdbcClient {
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    private String createSQL(String db, Map<String, Object> params) {
+    private <T> String createSQL(String db, Map<String, Object> params, Class<T> clazz) {
         StringBuffer sql = new StringBuffer();
-        sql.append("SELECT * FROM ").append(db).append(" WHERE 1=1 ");
+        sql.append("SELECT ");
+        
+        Field fields[] = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            sql.append(field.getName()).append(",");
+        }
+        sql.deleteCharAt(sql.length() - 1);
+        
+        sql.append(" FROM ").append(db).append(" WHERE 1=1 ");
         for (Entry<String, Object> entry : params.entrySet()) {
             sql.append(" AND ").append(entry.getKey()).append(" = ");
             Object value = entry.getValue();
@@ -95,5 +108,19 @@ public class JdbcClientImpl implements JdbcClient {
             }
         }
         return sql.toString();
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 转化成rowMap队列
+     *
+     * @param clazz
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    private <T> RowMapper<T> rowMapper(Class<T> clazz){
+        return (RowMapper<T>) ParameterizedBeanPropertyRowMapper.newInstance(clazz);
     }
 }

@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import com.wormchaos.bean.UserStatusBean;
+import com.wormchaos.dto.UserStatusBean;
 import com.wormchaos.util.constant.UnoConstants;
 import com.wormchaos.util.constant.UnoErrConstants;
 import com.wormchaos.util.exception.UnoException;
