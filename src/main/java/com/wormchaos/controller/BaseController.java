@@ -12,7 +12,10 @@ package com.wormchaos.controller;
 import org.springframework.stereotype.Controller;
 
 import com.wormchaos.util.GsonView;
+import com.wormchaos.util.StringUtils;
 import com.wormchaos.util.constant.UnoConstants;
+import com.wormchaos.util.constant.UnoErrConstants;
+import com.wormchaos.util.exception.UnoException;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -40,5 +43,22 @@ public class BaseController {
         gv.addStaticAttribute(UnoConstants.ERROR_CODE, UnoConstants.EMPTY_STR);
         gv.addStaticAttribute(UnoConstants.ERROR_MSG, UnoConstants.EMPTY_STR);
         return gv;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 检验传入参数是否为空
+     *
+     * @param key
+     * @param value
+     * @throws UnoException
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    public void checkParams(String key, String value) throws UnoException{
+        if(StringUtils.isBlank(value)){
+            throw new UnoException(UnoErrConstants.PARAMS_EMPTY_ERROR);
+        }
     }
 }

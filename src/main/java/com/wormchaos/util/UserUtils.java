@@ -41,7 +41,7 @@ public class UserUtils {
     /**
      * token失效时间 单位:毫秒
      */
-    private static int DELAY_TIME = 1 * 60 * 1000;
+    private static int DELAY_TIME = 15 * 60 * 1000;
 
     /**
      * 
@@ -54,15 +54,21 @@ public class UserUtils {
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    public static String login(String userId) throws Exception {
+    public static String login(String userId) throws UnoException {
         // 如果用户已登录，抛出异常
         if (checkUserLogin(userId)) {
             throw new UnoException(UnoErrConstants.USER_ALREADY_LOGIN);
         }
         // 生成RSA密钥
-        Map<String, Object> keyMap = RSACoder.initKey();
-        String token = RSACoder.encryptByPublicKey(userId, RSACoder.getPublicKey(keyMap));
-        tokenMap.put(token, new UserStatusBean(userId));
+        Map<String, Object> keyMap;
+        String token = null;
+        try {
+            keyMap = RSACoder.initKey();
+            token = RSACoder.encryptByPublicKey(userId, RSACoder.getPublicKey(keyMap));
+            tokenMap.put(token, new UserStatusBean(userId));
+        } catch (Exception e) {
+            throw new UnoException(UnoErrConstants.DEFAULT_ERROR);
+        }
         return token;
     }
     

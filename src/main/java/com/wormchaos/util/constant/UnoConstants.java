@@ -9,8 +9,6 @@
  */
 package com.wormchaos.util.constant;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -21,6 +19,9 @@ import java.util.Map;
  * @since [产品/模块版本] （可选）
  */
 public class UnoConstants {
+    
+    ////////////////////参数相关////////////////////////
+    
     /**
      * 用户鉴权token
      */
@@ -30,6 +31,11 @@ public class UnoConstants {
      * 空string
      */
     public static final String EMPTY_STR = "";
+    
+    /**
+     * 项目名
+     */
+    public static final String PRO_NAME = "uno";
     
     /**
      * successFlg
@@ -53,6 +59,15 @@ public class UnoConstants {
      * 失败返回码
      */
     public static final int FAILED = 0;
+    
+    public static final String USERNAME = "username";
+    
+    public static final String PASSWORD = "password";
+    
+    public static final String REFERER = "referer";
+    
+    
+    ////////////////////事件相关////////////////////////
     
     /**
      * 起始摸牌数

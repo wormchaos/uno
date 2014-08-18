@@ -28,6 +28,16 @@ public class UnoErrConstants {
     public static final String DEFAULT_ERROR = "U0001";
 
     /**
+     * 参数异常
+     */
+    public static final String PARAMS_ERROR = "U1001";
+
+    /**
+     * 参数为空
+     */
+    public static final String PARAMS_EMPTY_ERROR = "U1002";
+
+    /**
      * 用户鉴权异常
      */
     public static final String USER_TOKEN_ERROR = "U3001";
@@ -52,6 +62,10 @@ public class UnoErrConstants {
         private static final long serialVersionUID = -1299431555757561464L;
         {
             put(DEFAULT_ERROR, "系统异常");
+            
+            put(PARAMS_ERROR, "传入参数异常");
+            put(PARAMS_EMPTY_ERROR, "传入参数为空");
+            
             put(USER_TOKEN_ERROR, "用户鉴权异常");
             put(USER_ALREADY_LOGIN, "用户已登录");
             put(USER_NEED_LOGIN, "用户需要重新登录");
