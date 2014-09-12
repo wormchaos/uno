@@ -22,5 +22,14 @@
 	<mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>  
 	<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
 	<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>
-
+	
+	<!-- ====================== i18n =============================== 
+	<bean id="messageSource"
+		class="com.suning.web.mobile.message.LsReloadableResourceBundleMessageSource">
+		<property name="resourcePath" value="classpath:i18n/" />
+		<property name="resourceName" value="messages" />
+		<property name="resources" value="classpath*:i18n/*_messages*" />
+	</bean>
+	-->
+	
 </beans>

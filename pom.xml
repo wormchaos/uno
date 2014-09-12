@@ -7,6 +7,15 @@
   <version>0.0.1-SNAPSHOT</version>  
   <name>uno Maven Webapp</name>  
   <url>http://maven.apache.org</url>  
+  <build>
+  	<finalName>uno</finalName> 
+	<resources>
+		<resource>
+			<directory>${basedir}/src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+	</resources>
+  </build>
   <dependencies> 
     <dependency> 
       <groupId>junit</groupId>  
@@ -206,7 +215,4 @@
 	  <version>2.2</version>
 	</dependency>
   </dependencies>  
-  <build> 
-    <finalName>uno</finalName> 
-  </build> 
 </project>
