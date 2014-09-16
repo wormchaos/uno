@@ -83,4 +83,16 @@ public class UnoConstants {
      * 事件 - 扔牌
      */
     public static final String EVENT_THROW = "use";
+    
+    ////////////////////数据库相关////////////////////////
+    
+    /**
+     * 房间状态 - 等待中
+     */
+    public static final String ROOM_STATUS_WAITING = "0";
+    
+    /**
+     * 房间状态 - 游戏中
+     */
+    public static final String ROOM_STATUS_GAMING = "1";
 }

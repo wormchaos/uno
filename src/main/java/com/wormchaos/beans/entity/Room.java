@@ -7,7 +7,7 @@
  * <author>      <time>      <version>    <desc>
  * 修改人姓名             修改时间            版本号                  描述
  */
-package com.wormchaos.bean;
+package com.wormchaos.beans.entity;
 
 import java.util.Date;
 
@@ -25,6 +25,16 @@ public class Room {
      * 主键
      */
     private Long roomId;
+    
+    /**
+     * 游戏Id
+     */
+    private Long gameId;
+    
+    /**
+     * 状态
+     */
+    private Integer status;
     
     /**
      * 创建时间
@@ -57,6 +67,34 @@ public class Room {
      */
     public void setCreateDttm(Date createDttm) {
         this.createDttm = createDttm;
+    }
+
+    /**
+     * @return the gameId
+     */
+    public Long getGameId() {
+        return gameId;
+    }
+
+    /**
+     * @param gameId the gameId to set
+     */
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
+    }
+
+    /**
+     * @return the status
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }

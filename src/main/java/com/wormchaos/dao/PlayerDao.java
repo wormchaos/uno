@@ -12,7 +12,7 @@ package com.wormchaos.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.wormchaos.bean.Player;
+import com.wormchaos.beans.entity.Player;
 
 /**
  * 〈一句话功能简述〉<br>

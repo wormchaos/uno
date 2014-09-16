@@ -20,7 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.Gson;
-import com.wormchaos.bean.Player;
+import com.wormchaos.beans.entity.Player;
 import com.wormchaos.service.PlayerService;
 import com.wormchaos.util.GsonView;
 import com.wormchaos.util.constant.UnoErrConstants;

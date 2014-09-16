@@ -63,7 +63,11 @@ public class GameController extends BaseController{
         // TODO
         // gameId = queryGameIdByUser
         Long gameId = 1L;
-        GameStateUtils.initGameState(gameId, playerNum, null);
+        try {
+            GameStateUtils.initGameState(gameId, playerNum, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<CardBean> cardList = CardUtils.draw(gameId, 6);
         int cardListNum = cardList.size();
 

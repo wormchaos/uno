@@ -16,7 +16,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wormchaos.bean.Player;
+import com.wormchaos.beans.entity.Player;
 import com.wormchaos.dao.PlayerDao;
 import com.wormchaos.service.PlayerService;
 

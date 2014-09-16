@@ -1,7 +1,7 @@
 /**
- * FileName: UserDao.java
+ * FileName: RoomDao.java
  * Author:   wormchaos
- * Date:     2014-8-18 上午10:35:31
+ * Date:     2014-9-16 下午4:41:26
  * Description: //模块目的、功能描述      
  * History: //修改记录
  * <author>      <time>      <version>    <desc>
@@ -9,9 +9,7 @@
  */
 package com.wormchaos.dao;
 
-import java.util.Map;
-
-import com.wormchaos.beans.entity.User;
+import com.wormchaos.beans.entity.Room;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -21,17 +19,7 @@ import com.wormchaos.beans.entity.User;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public interface UserDao {
-
-    /**
-     * 
-     * 功能描述: <br>
-     * 查询用户
-     *
-     * @param params
-     * @return
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-    public User queryUser(Map<String, Object> params);
+public interface RoomDao {
+    
+    Room queryRoomById(String roomId);
 }

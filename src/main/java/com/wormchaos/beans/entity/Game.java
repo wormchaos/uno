@@ -7,7 +7,7 @@
  * <author>      <time>      <version>    <desc>
  * 修改人姓名             修改时间            版本号                  描述
  */
-package com.wormchaos.bean;
+package com.wormchaos.beans.entity;
 
 import java.util.Date;
 

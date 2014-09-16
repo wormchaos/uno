@@ -1,7 +1,7 @@
 /**
- * FileName: UserDaoImpl.java
+ * FileName: RoomDaoImpl.java
  * Author:   wormchaos
- * Date:     2014-8-18 上午10:37:23
+ * Date:     2014-9-16 下午4:51:33
  * Description: //模块目的、功能描述      
  * History: //修改记录
  * <author>      <time>      <version>    <desc>
@@ -9,13 +9,11 @@
  */
 package com.wormchaos.dao.impl;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import com.wormchaos.beans.entity.User;
-import com.wormchaos.dao.UserDao;
+import com.wormchaos.beans.entity.Room;
+import com.wormchaos.dao.RoomDao;
 import com.wormchaos.util.jdbc.JdbcClient;
 
 /**
@@ -26,20 +24,20 @@ import com.wormchaos.util.jdbc.JdbcClient;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-@Repository
-public class UserDaoImpl implements UserDao {
+@Component
+public class RoomDaoImpl implements RoomDao {
 
     @Autowired
     JdbcClient jdbcClient;
-    
-    private static final String DB_NAME = "uno_user";
-    
+
+    private static final String DB_NAME = "sgs_room";
+
     /*
      * (non-Javadoc)
-     * @see com.wormchaos.dao.UserDao#queryUser(java.util.Map)
+     * @see com.wormchaos.dao.RoomDao#queryRoomById(java.lang.String)
      */
-    public User queryUser(Map<String, Object> params) {
-        return jdbcClient.queryBeanByMap(DB_NAME, params, User.class);
+    public Room queryRoomById(String roomId) {
+        return jdbcClient.queryBeanByKey(DB_NAME, "roomId", roomId, Room.class);
     }
 
 }

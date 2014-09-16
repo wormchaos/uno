@@ -11,7 +11,7 @@ package com.wormchaos.service;
 
 import java.util.List;
 
-import com.wormchaos.bean.Player;
+import com.wormchaos.beans.entity.Player;
 
 /**
  * 〈一句话功能简述〉<br> 

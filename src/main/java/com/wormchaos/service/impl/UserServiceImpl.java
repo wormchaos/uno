@@ -15,7 +15,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wormchaos.bean.User;
+import com.wormchaos.beans.entity.User;
 import com.wormchaos.dao.UserDao;
 import com.wormchaos.service.UserService;
 import com.wormchaos.util.constant.UnoConstants;
