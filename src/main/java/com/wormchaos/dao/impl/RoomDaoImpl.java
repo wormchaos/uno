@@ -9,8 +9,10 @@
  */
 package com.wormchaos.dao.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.wormchaos.beans.entity.Room;
 import com.wormchaos.dao.RoomDao;
@@ -24,20 +26,28 @@ import com.wormchaos.util.jdbc.JdbcClient;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-@Component
+@Repository
 public class RoomDaoImpl implements RoomDao {
 
     @Autowired
     JdbcClient jdbcClient;
 
-    private static final String DB_NAME = "sgs_room";
+    private static final String DB_NAME = "uno_room";
 
     /*
      * (non-Javadoc)
      * @see com.wormchaos.dao.RoomDao#queryRoomById(java.lang.String)
      */
-    public Room queryRoomById(String roomId) {
+    public Room queryRoomById(Long roomId) {
         return jdbcClient.queryBeanByKey(DB_NAME, "roomId", roomId, Room.class);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.wormchaos.dao.RoomDao#updateByParams(java.util.Map, java.util.Map)
+     */
+    public void updateByParams(Map<String, Object> condition, Map<String, Object> params) {
+        jdbcClient.updateByParams(DB_NAME, condition, params);
     }
 
 }

@@ -52,8 +52,18 @@ public class GameStateUtils {
         GameStateUtils.gameState.put(gameId, gameBean);
     }
 
+    /**
+     * 
+     * 功能描述: <br>
+     * 查询状态
+     *
+     * @param gameId
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
     public static GameStateBean queryGameState(Long gameId) {
         return gameState.get(gameId);
     }
-
+    
 }

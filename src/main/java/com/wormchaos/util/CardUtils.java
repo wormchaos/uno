@@ -44,7 +44,7 @@ public class CardUtils {
      */
     public static void initCardList(Long gameId) {
         cardList = new ArrayList<CardBean>();
-        int cardId = 0;
+        Long cardId = Long.valueOf(0);
         // 1-9,跳过,翻转,+2 每种颜色有两张,但是0和万能牌只有一张
         for (CardColor color : CardColor.values()) {
             for (CardName name : CardName.values()) {

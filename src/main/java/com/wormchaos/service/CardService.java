@@ -1,17 +1,19 @@
 /**
- * FileName: RoomDao.java
+ * FileName: CardService.java
  * Author:   wormchaos
- * Date:     2014-9-16 下午4:41:26
+ * Date:     2014-9-17 上午11:48:15
  * Description: //模块目的、功能描述      
  * History: //修改记录
  * <author>      <time>      <version>    <desc>
  * 修改人姓名             修改时间            版本号                  描述
  */
-package com.wormchaos.dao;
+package com.wormchaos.service;
 
-import java.util.Map;
+import java.util.List;
 
-import com.wormchaos.beans.entity.Room;
+import com.wormchaos.beans.entity.Card;
+import com.wormchaos.beans.entity.Player;
+import com.wormchaos.dto.CardBean;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -21,29 +23,41 @@ import com.wormchaos.beans.entity.Room;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public interface RoomDao {
-    
+public interface CardService {
     /**
      * 
      * 功能描述: <br>
-     * 根据roomId查找room信息
+     * 插入卡牌
      *
      * @param roomId
      * @return
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    Room queryRoomById(Long roomId);
+    void insertCard(Player player, Long cardId);
+
+    /**
+     * 
+     * 功能描述: <br>
+     * 批量插入卡牌
+     *
+     * @param roomId
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    void batchInsertCard(Player player, List<CardBean> cardList);
     
     /**
      * 
      * 功能描述: <br>
-     * 根据入参更新表
+     * 删除卡牌
      *
-     * @param condition
-     * @param params
+     * @param roomId
+     * @return
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    void updateByParams(Map<String, Object> condition, Map<String, Object> params);
+    void deleteCard(Card card);
+
 }

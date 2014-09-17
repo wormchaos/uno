@@ -32,7 +32,7 @@ public class CardBean implements Serializable {
 
     }
 
-    public CardBean(int cardId, CardName cardName, CardColor cardColor) {
+    public CardBean(Long cardId, CardName cardName, CardColor cardColor) {
         this.cardId = cardId;
         this.cardName = cardName;
         this.cardColor = cardColor;
@@ -41,7 +41,7 @@ public class CardBean implements Serializable {
     /**
      * id，唯一标识码
      */
-    private int cardId;
+    private Long cardId;
 
     /**
      * 枚举
@@ -60,7 +60,7 @@ public class CardBean implements Serializable {
     public boolean equals(Object obj) {
         if ((obj instanceof CardBean) && obj != null) {
             CardBean card = (CardBean) obj;
-            if(card.getCardId() == this.cardId){
+            if(card.getCardId().equals(this.cardId)){
                 return true;
             }
         }
@@ -98,14 +98,14 @@ public class CardBean implements Serializable {
     /**
      * @return the cardId
      */
-    public int getCardId() {
+    public Long getCardId() {
         return cardId;
     }
 
     /**
      * @param cardId the cardId to set
      */
-    public void setCardId(int cardId) {
+    public void setCardId(Long cardId) {
         this.cardId = cardId;
     }
 

@@ -1,7 +1,7 @@
 /**
- * FileName: Game.java
+ * FileName: Card.java
  * Author:   wormchaos
- * Date:     2014-8-8 下午3:01:55
+ * Date:     2014-9-17 上午11:12:32
  * Description: //模块目的、功能描述      
  * History: //修改记录
  * <author>      <time>      <version>    <desc>
@@ -9,32 +9,30 @@
  */
 package com.wormchaos.beans.entity;
 
-import java.util.Date;
-
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈功能详细描述〉
- *
+ * 
  * @author wormchaos
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public class Game {
-    
+public class Card {
+
     /**
-     * 主键
+     * 游戏Id
      */
     private Long gameId;
-    
+
     /**
-     * 主键
+     * 用户Id
      */
-    private Integer playerNum;
-    
+    private Long userId;
+
     /**
-     * 创建时间
+     * 卡牌Id
      */
-    private Date createDttm;
+    private Long cardId;
 
     /**
      * @return the gameId
@@ -51,31 +49,31 @@ public class Game {
     }
 
     /**
-     * @return the createDttm
+     * @return the userId
      */
-    public Date getCreateDttm() {
-        return createDttm;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
-     * @param createDttm the createDttm to set
+     * @param userId the userId to set
      */
-    public void setCreateDttm(Date createDttm) {
-        this.createDttm = createDttm;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     /**
-     * @return the playerNum
+     * @return the cardId
      */
-    public Integer getPlayerNum() {
-        return playerNum;
+    public Long getCardId() {
+        return cardId;
     }
 
     /**
-     * @param playerNum the playerNum to set
+     * @param cardId the cardId to set
      */
-    public void setPlayerNum(Integer playerNum) {
-        this.playerNum = playerNum;
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
 }

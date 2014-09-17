@@ -129,8 +129,11 @@ public class JdbcClientImpl implements JdbcClient {
      * (non-Javadoc)
      * @see com.wormchaos.util.jdbc.JdbcClient#insertByMap(java.lang.String, java.util.Map, java.lang.Class)
      */
-    public <T> void insertByMap(String db, Map<String, Object> params) {
+    public void insertByMap(String db, Map<String, Object> params) {
         String sql = createInsertSql(db, params);
+        // KeyHolder keyHolder = new GeneratedKeyHolder();
+        // PreparedStatementCreator psc;
+        // jdbcTemplate.update(psc, keyHolder);
         jdbcTemplate.execute(sql);
     }
 
@@ -167,6 +170,7 @@ public class JdbcClientImpl implements JdbcClient {
     public <T> Long insertByMap(String db, Map<String, Object> params, Class<T> clazz) {
         this.insertByMap(db, params);
         T bean = this.queryBeanByMap(db, params, clazz);
+
         // TODO 数据库查询返回主键，万分注意！！！！
         return null;
     }
@@ -181,5 +185,132 @@ public class JdbcClientImpl implements JdbcClient {
             return null;
         }
         return list.get(0);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.wormchaos.util.jdbc.JdbcClient#deleteByMap(java.lang.String, java.util.Map)
+     */
+    public void deleteByMap(String db, Map<String, Object> params) {
+        String sql = createDeleteSql(db, params);
+        jdbcTemplate.execute(sql);
+    }
+
+    /**
+     * 功能描述: <br>
+     * 创建插入sql
+     * 
+     * @param db
+     * @param params
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    private String createDeleteSql(String db, Map<String, Object> params) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("DELETE FROM ").append(db).append(" WHERE 1=1 ");
+        for (Entry<String, Object> entry : params.entrySet()) {
+            sql.append(" AND ").append(entry.getKey()).append(" = ");
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                sql.append(" '").append(value).append("' ");
+            } else if (value instanceof Date) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sql.append(" '").append(df.format(value)).append("' ");
+            } else {
+                sql.append(value);
+            }
+        }
+        return sql.toString();
+    }
+
+    // public Number persist(Object obj, String tablesName, Long keyValue) {
+    // String sql = "";
+    // Map<String, Object> paramMap = ValueParser.parser(obj);
+    // List<DataSource> dsList = routeUtil.route(tablesName, keyValue);
+    // RouteJdbcTemplate jdbcTemplate = new RouteJdbcTemplate();
+    // if (keyValue != null) {
+    // // keyValue不为空则是非自增主键
+    // jdbcTemplate.execute(dsList.get(0), sql, paramMap);
+    // return 0;
+    // } else {
+    // return jdbcTemplate.executeForHolder(dsList.get(0), sql, paramMap);
+    // }
+    // }
+    // public Number executeForHolder(DataSource ds, String sql, Map<String, ?> paramMap) {
+    // if (this.logger.isDebugEnabled()) {
+    // StringBuffer sb = new StringBuffer();
+    // sb.append(SQL).append(sql).append(PARAM).append(paramMap);
+    // logger.debug(sb.toString());
+    // }
+    // KeyHolder keyHolder = new GeneratedKeyHolder();
+    // NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(ds);
+    // jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
+    //
+    // List<Map<String, Object>> keyList = keyHolder.getKeyList();
+    // if (keyList == null || keyList.isEmpty()) {
+    // return 0;
+    // }
+    // Iterator<Object> keyIter = keyList.get(0).values().iterator();
+    // Object key = keyIter.next();
+    // if (!(key instanceof Number)) {
+    // return 0;
+    // } else {
+    // return (Number) key;
+    // }
+    // }
+
+    /*
+     * (non-Javadoc)
+     * @see com.wormchaos.util.jdbc.JdbcClient#updateByParams(java.lang.String, java.util.Map, java.util.Map)
+     */
+    public void updateByParams(String db, Map<String, Object> condition, Map<String, Object> params) {
+        String sql = createUpdateSql(db, condition, params);
+        jdbcTemplate.update(sql);
+    }
+
+    /**
+     * 功能描述: <br>
+     * 〈功能详细描述〉
+     * 
+     * @param db
+     * @param params
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    private String createUpdateSql(String db, Map<String, Object> condition, Map<String, Object> params) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("UPDATE ").append(db).append(" SET ");
+
+        for (Entry<String, Object> entry : params.entrySet()) {
+            sql.append(entry.getKey()).append(" = ");
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                sql.append(" '").append(value).append("' ");
+            } else if (value instanceof Date) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sql.append(" '").append(df.format(value)).append("' ");
+            } else {
+                sql.append(value);
+            }
+            sql.append(" ,");
+        }
+        sql.deleteCharAt(sql.length() - 1);
+
+        sql.append(" WHERE 1=1 ");
+        for (Entry<String, Object> entry : condition.entrySet()) {
+            sql.append(" AND ").append(entry.getKey()).append(" = ");
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                sql.append(" '").append(value).append("' ");
+            } else if (value instanceof Date) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sql.append(" '").append(df.format(value)).append("' ");
+            } else {
+                sql.append(value);
+            }
+        }
+        return sql.toString();
     }
 }

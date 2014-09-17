@@ -1,7 +1,7 @@
 /**
- * FileName: GameDaoImpl.java
+ * FileName: CardDaoImpl.java
  * Author:   wormchaos
- * Date:     2014-8-8 下午5:36:46
+ * Date:     2014-9-17 上午11:15:25
  * Description: //模块目的、功能描述      
  * History: //修改记录
  * <author>      <time>      <version>    <desc>
@@ -12,11 +12,12 @@ package com.wormchaos.dao.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.wormchaos.beans.entity.Game;
-import com.wormchaos.dao.GameDao;
+import com.wormchaos.beans.entity.Card;
+import com.wormchaos.dao.CardDao;
 import com.wormchaos.util.jdbc.JdbcClient;
 
 /**
@@ -28,23 +29,30 @@ import com.wormchaos.util.jdbc.JdbcClient;
  * @since [产品/模块版本] （可选）
  */
 @Repository
-public class GameDaoImpl implements GameDao {
+public class CardDaoImpl implements CardDao {
 
     @Autowired
     JdbcClient jdbcClient;
 
-    private static final String DB_NAME = "uno_game";
+    private static final String DB_NAME = "uno_card";
 
     /*
      * (non-Javadoc)
-     * @see com.wormchaos.dao.GameDao#createGame()
+     * @see com.wormchaos.dao.CardDao#insertCard(com.wormchaos.beans.entity.Card)
      */
-    public Long createGame(Long roomId, Integer playerNum) {
+    public void insertCard(Card card) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("roomId", roomId);
-        params.put("palyerNum", playerNum);
-        params.put("currentDttm", new java.util.Date());
-        return jdbcClient.insertByMap(DB_NAME, params, Game.class);
+        BeanUtils.copyProperties(card, params);
+        jdbcClient.insertByMap(DB_NAME, params);
+    }
+
+    /* (non-Javadoc)
+     * @see com.wormchaos.dao.CardDao#deleteCard(com.wormchaos.beans.entity.Card)
+     */
+    public void deleteCard(Card card) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        BeanUtils.copyProperties(card, params);
+        jdbcClient.deleteByMap(DB_NAME, params);
     }
 
 }

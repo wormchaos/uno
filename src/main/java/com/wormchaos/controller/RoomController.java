@@ -51,7 +51,7 @@ public class RoomController {
      */
     @RequestMapping("check")
     public GsonView checkGameStart(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "roomId", required = false) String roomId) throws UnoException {
+            @RequestParam(value = "roomId", required = false) Long roomId) throws UnoException {
         GsonView gv = new GsonView();
         // 根据roomId查询游戏状态
         Integer status = roomService.checkGameStatus(roomId);

@@ -82,7 +82,7 @@ public interface JdbcClient {
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    <T> void insertByMap(String db, Map<String, Object> params);
+    void insertByMap(String db, Map<String, Object> params);
     
     /**
      * 
@@ -97,5 +97,31 @@ public interface JdbcClient {
      * @since [产品/模块版本](可选)
      */
     <T> Long insertByMap(String db, Map<String, Object> params, Class<T> clazz);
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 删除表里多条符合条件的数据
+     *
+     * @param db
+     * @param params
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    void deleteByMap(String db, Map<String, Object> params);
+
+    /**
+     * 
+     * 功能描述: <br>
+     * 根据条件更新字段
+     *
+     * @param db
+     * @param condition
+     * @param params
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    void updateByParams(String db, Map<String, Object> condition, Map<String, Object> params);
     
 }

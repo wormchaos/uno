@@ -14,17 +14,25 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wormchaos.beans.entity.Player;
 import com.wormchaos.dto.CardBean;
 import com.wormchaos.dto.GameStateBean;
+import com.wormchaos.service.CardService;
+import com.wormchaos.service.GameService;
+import com.wormchaos.service.PlayerService;
+import com.wormchaos.service.RoomService;
 import com.wormchaos.util.CardUtils;
 import com.wormchaos.util.GameStateUtils;
+import com.wormchaos.util.GsonUtils;
 import com.wormchaos.util.GsonView;
 import com.wormchaos.util.UserUtils;
+import com.wormchaos.util.constant.UnoConstants;
 import com.wormchaos.util.exception.UnoException;
 
 /**
@@ -37,16 +45,27 @@ import com.wormchaos.util.exception.UnoException;
  */
 @Controller
 @RequestMapping("game")
-public class GameController extends BaseController{
+public class GameController extends BaseController {
 
     private static final String INDEX_PAGE = "game/index";
+
+    @Autowired
+    RoomService roomService;
+
+    @Autowired
+    GameService gameService;
+
+    @Autowired
+    PlayerService playerService;
+    
+    @Autowired
+    CardService cardService;
 
     /**
      * 
      * 功能描述: <br>
-     * 进入游戏页面
-     * 通过cookie获得用户id并取得卡牌信息
-     *
+     * 进入游戏页面 通过cookie获得用户id并取得卡牌信息
+     * 
      * @param request
      * @param response
      * @param playerNum
@@ -79,12 +98,12 @@ public class GameController extends BaseController{
         model.addObject("deckNum", cardListNum);
         return model;
     }
-    
+
     /**
      * 
      * 功能描述: <br>
      * 当前场上情况
-     *
+     * 
      * @param request
      * @param response
      * @param gameId
@@ -109,20 +128,20 @@ public class GameController extends BaseController{
         gv.addStaticAttribute("cemeteryNum", gameState.getCemeteryList().size());
         gv.addStaticAttribute("lastCemetery", gameState.getLastCard());
         gv.addStaticAttribute("players", gameState.getPlayers());
-        
+
         // 上面是整个场地的情况
         // 下面是对当前用户的信息
         String userId = UserUtils.queryUserId(request);
         // TODO 根据用户Id获取当前手牌信息
-        
+
         return gv;
     }
-    
+
     /**
      * 
      * 功能描述: <br>
      * 创建游戏
-     *
+     * 
      * @param request
      * @param response
      * @param gameId
@@ -132,16 +151,34 @@ public class GameController extends BaseController{
      */
     @RequestMapping("createGame")
     public GsonView createGame(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "roomId", required = false) String roomId) throws UnoException {
+            @RequestParam(value = "roomId", required = false) Long roomId,
+            @RequestParam(value = "playerNum", required = false) Integer playerNum) throws UnoException {
         GsonView gv = createGson();
-        // TODO 数据库操作创建游戏
-        // TODO 获取所有房间等待中玩家并把状态改为游戏中
-        // TODO 初始化gamestate状态
-        // TODO 所有玩家抽牌，并在gamestate里更新
+        // 检查房间的状态，不能为游戏中
+        Integer gameStatus = roomService.checkGameStatus(roomId);
+        if (UnoConstants.ROOM_STATUS_GAMING.equals(gameStatus.toString())) {
+            GsonUtils.addErrInfo(gv, "房间已开始游戏，无法创建新的游戏");
+            return gv;
+        }
+
+        // 数据库 创建游戏
+        Long gameId = gameService.createNewGame(roomId, playerNum);
+        // TODO 获取所有房间等待中玩家，并把房间状态和玩家状态改为游戏中
+        List<Player> players = playerService.queryListByRoomId(roomId);
+        
+        
+        // 初始化gamestate状态
+        GameStateUtils.initGameState(gameId, playerNum, null);
+        // 所有玩家抽牌，并在gamestate里更新
+        List<CardBean> cardList = null; 
+        for (Player player : players) {
+            cardList = CardUtils.draw(gameId, 6);
+            cardService.batchInsertCard(player, cardList);
+        }
         // 如果失败，把异常返回
         return gv;
     }
-    
+
     @RequestMapping("ajax/checkGameStart")
     public GsonView checkGameStart(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "roomId", required = false) String roomId) throws UnoException {

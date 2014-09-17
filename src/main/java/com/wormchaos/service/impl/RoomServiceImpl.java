@@ -34,7 +34,7 @@ public class RoomServiceImpl implements RoomService {
      * (non-Javadoc)
      * @see com.wormchaos.service.RoomService#checkGameStatus(java.lang.String)
      */
-    public Integer checkGameStatus(String roomId) {
+    public Integer checkGameStatus(Long roomId) {
         Room room = roomDao.queryRoomById(roomId);
         if (null == room || null == room.getStatus()) {
             return null;
