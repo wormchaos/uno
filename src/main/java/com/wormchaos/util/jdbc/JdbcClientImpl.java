@@ -313,4 +313,47 @@ public class JdbcClientImpl implements JdbcClient {
         }
         return sql.toString();
     }
+
+    /* (non-Javadoc)
+     * @see com.wormchaos.util.jdbc.JdbcClient#updateByKey(java.lang.String, java.lang.String, java.lang.Long, java.util.Map)
+     */
+    public void updateByKey(String db, String keyName, Long keyValue, Map<String, Object> params) {
+        String sql = createUpdateSql(db, keyName, keyValue, params);
+        jdbcTemplate.update(sql);
+    }
+
+    /**
+     * 功能描述: <br>
+     * 〈功能详细描述〉
+     *
+     * @param db
+     * @param keyName
+     * @param keyValue
+     * @param params
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    private String createUpdateSql(String db, String keyName, Long keyValue, Map<String, Object> params) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("UPDATE ").append(db).append(" SET ");
+
+        for (Entry<String, Object> entry : params.entrySet()) {
+            sql.append(entry.getKey()).append(" = ");
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                sql.append(" '").append(value).append("' ");
+            } else if (value instanceof Date) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sql.append(" '").append(df.format(value)).append("' ");
+            } else {
+                sql.append(value);
+            }
+            sql.append(" ,");
+        }
+        sql.deleteCharAt(sql.length() - 1);
+
+        sql.append(" WHERE ").append(keyName).append(" = ").append(keyValue);
+        return sql.toString();
+    }
 }

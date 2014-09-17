@@ -30,14 +30,9 @@ public class Player {
     private Long gameId;
     
     /**
-     * 可空
-     */
-    private Long roomId;
-    
-    /**
      * 当前状态
      */
-    private Integer state;
+    private Integer status;
 
     /**
      * @return the userId
@@ -68,31 +63,17 @@ public class Player {
     }
 
     /**
-     * @return the roomId
+     * @return the status
      */
-    public Long getRoomId() {
-        return roomId;
+    public Integer getStatus() {
+        return status;
     }
 
     /**
-     * @param roomId the roomId to set
+     * @param status the status to set
      */
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
-    }
-
-    /**
-     * @return the state
-     */
-    public Integer getState() {
-        return state;
-    }
-
-    /**
-     * @param state the state to set
-     */
-    public void setState(Integer state) {
-        this.state = state;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }

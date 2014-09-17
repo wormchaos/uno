@@ -9,12 +9,16 @@
  */
 package com.wormchaos.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wormchaos.beans.entity.Room;
 import com.wormchaos.dao.RoomDao;
 import com.wormchaos.service.RoomService;
+import com.wormchaos.util.constant.UnoConstants;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -41,6 +45,15 @@ public class RoomServiceImpl implements RoomService {
         } else {
             return room.getStatus();
         }
+    }
+
+    /* (non-Javadoc)
+     * @see com.wormchaos.service.RoomService#updateStatus(java.lang.Long)
+     */
+    public void updateStatus(Long roomId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("status", UnoConstants.ROOM_STATUS_GAMING);
+        roomDao.updateByKey("roomId", roomId, params);
     }
 
 }

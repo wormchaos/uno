@@ -9,6 +9,7 @@
  */
 package com.wormchaos.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,17 @@ public class PlayerDaoImpl implements PlayerDao {
         if (null == player) {
             return null;
         }
-        return player.getState();
+        return player.getStatus();
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.wormchaos.dao.PlayerDao#updateStatusByUserId(java.lang.Long)
+     */
+    public void updateStatusByUserId(String status, Long userId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("status", status);
+        jdbcClient.updateByKey(DB_NAME, "userId", userId, params);
     }
 
 }

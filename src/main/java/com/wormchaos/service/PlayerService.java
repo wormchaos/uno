@@ -46,4 +46,16 @@ public interface PlayerService {
      * @since [产品/模块版本](可选)
      */
     List<Player> queryListByRoomId(Long roomId);
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 根据主键更新状态
+     *
+     * @param status
+     * @param userId
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    void updateStatusByUserId(String status, Long userId);
 }
