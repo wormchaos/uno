@@ -50,4 +50,11 @@ public class RoomDaoImpl implements RoomDao {
         jdbcClient.updateByParams(DB_NAME, condition, params);
     }
 
+    /* (non-Javadoc)
+     * @see com.wormchaos.dao.RoomDao#updateByKey(java.lang.String, java.lang.String, java.util.Map)
+     */
+    public void updateByKey(String keyName, Long keyValue, Map<String, Object> params) {
+        jdbcClient.updateByKey(DB_NAME, keyName, keyValue, params);
+    }
+
 }

@@ -9,6 +9,8 @@
  */
 package com.wormchaos.dao;
 
+import com.wormchaos.beans.entity.Game;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -29,4 +31,5 @@ public interface GameDao {
      * @since [产品/模块版本](可选)
      */
     Long createGame(Long roomId, Integer playerNum);
+    
 }

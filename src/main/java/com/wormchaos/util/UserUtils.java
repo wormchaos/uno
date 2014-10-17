@@ -122,7 +122,7 @@ public class UserUtils {
         } else {
             // 更新时间戳
             bean.setTimestamp(new Date().getTime());
-            return token;
+            return bean.getUserId();
         }
 
         return null;

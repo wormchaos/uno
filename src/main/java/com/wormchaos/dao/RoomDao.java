@@ -46,4 +46,16 @@ public interface RoomDao {
      * @since [产品/模块版本](可选)
      */
     void updateByParams(Map<String, Object> condition, Map<String, Object> params);
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 根据入参更新表
+     *
+     * @param condition
+     * @param params
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    void updateByKey(String keyName, Long keyValue, Map<String, Object> params);
 }

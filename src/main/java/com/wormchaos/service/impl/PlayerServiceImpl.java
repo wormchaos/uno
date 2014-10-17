@@ -52,4 +52,11 @@ public class PlayerServiceImpl implements PlayerService {
         return playerDao.queryListByMap(params);
     }
 
+    /* (non-Javadoc)
+     * @see com.wormchaos.service.PlayerService#updateStatusByUserId(java.lang.String, java.lang.Long)
+     */
+    public void updateStatusByUserId(String status, Long userId) {
+        
+    }
+
 }

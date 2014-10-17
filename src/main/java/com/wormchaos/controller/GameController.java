@@ -57,7 +57,7 @@ public class GameController extends BaseController {
 
     @Autowired
     PlayerService playerService;
-    
+
     @Autowired
     CardService cardService;
 
@@ -78,10 +78,14 @@ public class GameController extends BaseController {
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "playerNum", required = false) Integer playerNum) throws UnoException {
         ModelAndView model = new ModelAndView(INDEX_PAGE);
-        // String userId = UserUtils.queryUserId(request);
+        String userId = UserUtils.queryUserId(request);
         // TODO
         // gameId = queryGameIdByUser
-        Long gameId = 1L;
+        Player player = playerService.queryBeanByUserId(userId);
+        if(null == player){
+            // TODO 抛出异常
+        }
+        Long gameId = player.getGameId();
         try {
             GameStateUtils.initGameState(gameId, playerNum, null);
         } catch (Exception e) {
@@ -163,14 +167,19 @@ public class GameController extends BaseController {
 
         // 数据库 创建游戏
         Long gameId = gameService.createNewGame(roomId, playerNum);
-        // TODO 获取所有房间等待中玩家，并把房间状态和玩家状态改为游戏中
+        // 获取所有房间等待中玩家
         List<Player> players = playerService.queryListByRoomId(roomId);
-        
-        
+        // 把房间状态改为游戏中
+        roomService.updateStatus(roomId);
+        // 把玩家状态改为游戏中
+        for (Player player : players) {
+            playerService.updateStatusByUserId(UnoConstants.ROOM_STATUS_GAMING, player.getUserId());
+        }
+
         // 初始化gamestate状态
         GameStateUtils.initGameState(gameId, playerNum, null);
         // 所有玩家抽牌，并在gamestate里更新
-        List<CardBean> cardList = null; 
+        List<CardBean> cardList = null;
         for (Player player : players) {
             cardList = CardUtils.draw(gameId, 6);
             cardService.batchInsertCard(player, cardList);
