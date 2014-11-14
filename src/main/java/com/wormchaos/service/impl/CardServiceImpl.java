@@ -12,6 +12,7 @@ package com.wormchaos.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wormchaos.beans.entity.Card;
 import com.wormchaos.beans.entity.Player;
@@ -27,6 +28,7 @@ import com.wormchaos.service.CardService;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
+@Service
 public class CardServiceImpl implements CardService {
 
     @Autowired

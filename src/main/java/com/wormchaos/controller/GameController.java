@@ -82,15 +82,11 @@ public class GameController extends BaseController {
         // TODO
         // gameId = queryGameIdByUser
         Player player = playerService.queryBeanByUserId(userId);
-        if(null == player){
+        if (null == player) {
             // TODO 抛出异常
         }
         Long gameId = player.getGameId();
-        try {
-            GameStateUtils.initGameState(gameId, playerNum, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         List<CardBean> cardList = CardUtils.draw(gameId, 6);
         int cardListNum = cardList.size();
 
@@ -167,10 +163,10 @@ public class GameController extends BaseController {
 
         // 数据库 创建游戏
         Long gameId = gameService.createNewGame(roomId, playerNum);
+        // 更新房间状态并映射gameId
+        roomService.updateStatus(roomId, UnoConstants.ROOM_STATUS_GAMING, gameId);
         // 获取所有房间等待中玩家
-        List<Player> players = playerService.queryListByRoomId(roomId);
-        // 把房间状态改为游戏中
-        roomService.updateStatus(roomId);
+        List<Player> players = playerService.queryListByGameId(gameId);
         // 把玩家状态改为游戏中
         for (Player player : players) {
             playerService.updateStatusByUserId(UnoConstants.ROOM_STATUS_GAMING, player.getUserId());

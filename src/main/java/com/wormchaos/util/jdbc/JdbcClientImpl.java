@@ -48,18 +48,6 @@ public class JdbcClientImpl implements JdbcClient {
 
     /*
      * (non-Javadoc)
-     * @see com.wormchaos.util.jdbc.JdbcClient#queryBeanByKey(java.lang.String, java.lang.String, java.lang.String)
-     */
-    public <T> T queryBeanByKey(String db, String keyName, String keyValue, Class<T> clazz) {
-        StringBuffer sql = new StringBuffer();
-        sql.append("select * from ").append(db);
-        sql.append(" where ").append(keyName).append(" = ");
-        sql.append("'").append(keyValue).append("'");
-        return jdbcTemplate.queryForObject(sql.toString(), rowMapper(clazz));
-    }
-
-    /*
-     * (non-Javadoc)
      * @see com.wormchaos.util.jdbc.JdbcClient#queryBeanByKey(java.lang.String, java.lang.String, java.lang.Long,
      * java.lang.Class)
      */
@@ -168,11 +156,38 @@ public class JdbcClientImpl implements JdbcClient {
      * @see com.wormchaos.util.jdbc.JdbcClient#insertByMap(java.lang.String, java.util.Map)
      */
     public <T> Long insertByMap(String db, Map<String, Object> params, Class<T> clazz) {
-        this.insertByMap(db, params);
+        try {
+            this.insertByMap(db, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        // 查询主键的名称
+        String name = queryPrimaryKey(db);
         T bean = this.queryBeanByMap(db, params, clazz);
+        try {
+            Field field = clazz.getDeclaredField(name);
+            field.setAccessible(true);
+            return Long.parseLong(field.get(bean).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-        // TODO 数据库查询返回主键，万分注意！！！！
-        return null;
+    /**
+     * 功能描述: <br>
+     * 查找表的主键
+     * 
+     * @param db
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    private String queryPrimaryKey(String db) {
+        String sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_NAME='" + db + "'";
+        Map<String, Object> result = jdbcTemplate.queryForMap(sql);
+        String name = (String) result.get("COLUMN_NAME");
+        return name;
     }
 
     /*
@@ -314,8 +329,10 @@ public class JdbcClientImpl implements JdbcClient {
         return sql.toString();
     }
 
-    /* (non-Javadoc)
-     * @see com.wormchaos.util.jdbc.JdbcClient#updateByKey(java.lang.String, java.lang.String, java.lang.Long, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see com.wormchaos.util.jdbc.JdbcClient#updateByKey(java.lang.String, java.lang.String, java.lang.Long,
+     * java.util.Map)
      */
     public void updateByKey(String db, String keyName, Long keyValue, Map<String, Object> params) {
         String sql = createUpdateSql(db, keyName, keyValue, params);
@@ -325,7 +342,7 @@ public class JdbcClientImpl implements JdbcClient {
     /**
      * 功能描述: <br>
      * 〈功能详细描述〉
-     *
+     * 
      * @param db
      * @param keyName
      * @param keyValue

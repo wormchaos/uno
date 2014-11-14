@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import com.wormchaos.beans.entity.Room;
 import com.wormchaos.dao.RoomDao;
 import com.wormchaos.service.RoomService;
-import com.wormchaos.util.constant.UnoConstants;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -50,9 +49,10 @@ public class RoomServiceImpl implements RoomService {
     /* (non-Javadoc)
      * @see com.wormchaos.service.RoomService#updateStatus(java.lang.Long)
      */
-    public void updateStatus(Long roomId) {
+    public void updateStatus(Long roomId, String status, Long gameId) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("status", UnoConstants.ROOM_STATUS_GAMING);
+        params.put("status", status);
+        params.put("gameId", gameId);
         roomDao.updateByKey("roomId", roomId, params);
     }
 

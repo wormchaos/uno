@@ -29,6 +29,11 @@ public class Game {
     /**
      * 主键
      */
+    private Long roomId;
+    
+    /**
+     * 主键
+     */
     private Integer playerNum;
     
     /**
@@ -76,6 +81,20 @@ public class Game {
      */
     public void setPlayerNum(Integer playerNum) {
         this.playerNum = playerNum;
+    }
+
+    /**
+     * @return the roomId
+     */
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    /**
+     * @param roomId the roomId to set
+     */
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
 }

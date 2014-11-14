@@ -49,18 +49,6 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 根据String型主键查询
-     *
-     * @param key
-     * @return
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-    <T> T queryBeanByKey(String db, String keyName, String keyValue, Class<T> clazz);
-    
-    /**
-     * 
-     * 功能描述: <br>
      * 根据Long型主键查询
      *
      * @param key

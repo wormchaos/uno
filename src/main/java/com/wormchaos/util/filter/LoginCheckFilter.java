@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wormchaos.util.UserUtils;
-import com.wormchaos.util.constant.UnoConstants;
 import com.wormchaos.util.exception.UnoException;
 
 /**
@@ -60,7 +59,8 @@ public class LoginCheckFilter implements Filter {
                 // 重定向到登录页面
                 // httpResponse.addHeader(UnoConstants.REFERER, httpRequest.getHeader(UnoConstants.REFERER));
                 httpResponse.sendRedirect(LOGIN_URI + "?referer="
-                        + URLEncoder.encode(httpRequest.getRequestURL().toString()));
+                        + URLEncoder.encode(httpRequest.getRequestURL().toString(), "utf-8"));
+                return;
             }
         }
         chain.doFilter(httpRequest, httpResponse);

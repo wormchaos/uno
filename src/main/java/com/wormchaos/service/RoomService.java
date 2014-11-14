@@ -42,6 +42,6 @@ public interface RoomService {
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    void updateStatus(Long roomId);
+    void updateStatus(Long roomId, String status, Long gameId);
     
 }
