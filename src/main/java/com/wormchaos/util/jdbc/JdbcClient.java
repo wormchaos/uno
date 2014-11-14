@@ -25,7 +25,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 根据复数参数查询数据
+     * Q-根据复数参数查询数据
      *
      * @param map
      * @return
@@ -37,7 +37,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 根据复数参数查询数据，当且仅当返回一条的时候会返回，其他都返回null;
+     * Q-根据复数参数查询数据，当且仅当返回一条的时候会返回，其他都返回null;
      *
      * @param map
      * @return
@@ -49,7 +49,8 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 根据Long型主键查询
+     * Q-根据Long型主键查询
+     * TODO 暂无其他类型的主键
      *
      * @param key
      * @return
@@ -61,7 +62,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 表里插入一条数据
+     * I-表里插入一条数据
      *
      * @param db
      * @param params
@@ -75,7 +76,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 表里插入一条数据，返回主键id
+     * I-表里插入一条数据，返回主键id
      *
      * @param db
      * @param params
@@ -89,7 +90,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 删除表里多条符合条件的数据
+     * D-删除表里多条符合条件的数据
      *
      * @param db
      * @param params
@@ -102,7 +103,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 根据条件更新字段
+     * U-根据条件更新字段
      *
      * @param db
      * @param condition
@@ -115,7 +116,7 @@ public interface JdbcClient {
     /**
      * 
      * 功能描述: <br>
-     * 根据条件更新字段
+     * U-根据条件更新字段
      *
      * @param db
      * @param condition
