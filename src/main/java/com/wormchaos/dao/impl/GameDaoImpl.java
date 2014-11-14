@@ -41,9 +41,7 @@ public class GameDaoImpl implements GameDao {
      */
     public Long createGame(Long roomId, Integer playerNum) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("roomId", roomId);
-        params.put("palyerNum", playerNum);
-        params.put("currentDttm", new java.util.Date());
+        params.put("playerNum", playerNum);
         return jdbcClient.insertByMap(DB_NAME, params, Game.class);
     }
 

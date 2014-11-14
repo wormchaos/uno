@@ -76,7 +76,8 @@ public class UserController extends BaseController {
 
         ModelAndView model = new ModelAndView(LOGIN_PAGE);
         // 检查参数，如果为空，跳转到登陆页
-        if (null == username && null == password) {
+        if (null == username && null
+                == password) {
             model.addObject(UnoConstants.REFERER, referer);
             return model;
         }
