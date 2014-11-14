@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wormchaos.beans.entity.Card;
 import com.wormchaos.dao.CardDao;
+import com.wormchaos.util.BeanUtil;
 import com.wormchaos.util.jdbc.JdbcClient;
 
 /**
@@ -42,11 +43,12 @@ public class CardDaoImpl implements CardDao {
      */
     public void insertCard(Card card) {
         Map<String, Object> params = new HashMap<String, Object>();
-        BeanUtils.copyProperties(card, params);
+        BeanUtil.copyProperties(card, params);
         jdbcClient.insertByMap(DB_NAME, params);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.wormchaos.dao.CardDao#deleteCard(com.wormchaos.beans.entity.Card)
      */
     public void deleteCard(Card card) {

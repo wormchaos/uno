@@ -14,9 +14,9 @@ import java.util.List;
 import com.wormchaos.beans.entity.Player;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈功能详细描述〉
- *
+ * 
  * @author wormchaos
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
@@ -27,7 +27,7 @@ public interface PlayerService {
      * 
      * 功能描述: <br>
      * 根据主键查找player
-     *
+     * 
      * @param userId
      * @return
      * @see [相关类/方法](可选)
@@ -39,23 +39,23 @@ public interface PlayerService {
      * 
      * 功能描述: <br>
      * 根据roomId查找player
-     *
+     * 
      * @param userId
      * @return
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    List<Player> queryListByGameId(Long gameId);
-    
+    List<Player> queryListByRoomId(Long roomId);
+
     /**
      * 
      * 功能描述: <br>
      * 根据主键更新状态
-     *
+     * 
      * @param status
      * @param userId
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    void updateStatusByUserId(String status, Long userId);
+    void updateStatusByUserId(String status, Long gameId, Long userId);
 }

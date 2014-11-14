@@ -69,9 +69,10 @@ public class PlayerDaoImpl implements PlayerDao {
      * (non-Javadoc)
      * @see com.wormchaos.dao.PlayerDao#updateStatusByUserId(java.lang.Long)
      */
-    public void updateStatusByUserId(String status, Long userId) {
+    public void updateStatusByUserId(String status, Long gameId, Long userId) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("status", status);
+        params.put("gameId", gameId);
         jdbcClient.updateByKey(DB_NAME, "userId", userId, params);
     }
 

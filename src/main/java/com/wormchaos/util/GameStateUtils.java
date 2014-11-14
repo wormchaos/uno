@@ -63,7 +63,12 @@ public class GameStateUtils {
      * @since [产品/模块版本](可选)
      */
     public static GameStateBean queryGameState(Long gameId) {
-        return gameState.get(gameId);
+        GameStateBean result = gameState.get(gameId);
+        // TODO 如果为空重新创建
+        if(null == result){
+            return null;
+        }
+        return result;
     }
     
 }

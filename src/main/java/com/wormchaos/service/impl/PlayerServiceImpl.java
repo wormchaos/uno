@@ -46,17 +46,18 @@ public class PlayerServiceImpl implements PlayerService {
      * (non-Javadoc)
      * @see com.wormchaos.service.PlayerService#queryBeanByMap(java.lang.Long)
      */
-    public List<Player> queryListByGameId(Long gameId) {
+    public List<Player> queryListByRoomId(Long roomId) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("gameId", gameId);
+        params.put("roomId", roomId);
         return playerDao.queryListByMap(params);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.wormchaos.service.PlayerService#updateStatusByUserId(java.lang.String, java.lang.Long)
      */
-    public void updateStatusByUserId(String status, Long userId) {
-        
+    public void updateStatusByUserId(String status, Long gameId, Long userId) {
+        playerDao.updateStatusByUserId(status, gameId, userId);
     }
 
 }

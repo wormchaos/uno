@@ -166,12 +166,13 @@ public class GameController extends BaseController {
         // 更新房间状态并映射gameId
         roomService.updateStatus(roomId, UnoConstants.ROOM_STATUS_GAMING, gameId);
         // 获取所有房间等待中玩家
-        List<Player> players = playerService.queryListByGameId(gameId);
+        List<Player> players = playerService.queryListByRoomId(roomId);
         // 把玩家状态改为游戏中
         for (Player player : players) {
-            playerService.updateStatusByUserId(UnoConstants.ROOM_STATUS_GAMING, player.getUserId());
+            playerService.updateStatusByUserId(UnoConstants.ROOM_STATUS_GAMING, gameId, player.getUserId());
         }
-
+        // TODO 重新获取，这边可能需要优化
+        players = playerService.queryListByRoomId(roomId);
         // 初始化gamestate状态
         GameStateUtils.initGameState(gameId, playerNum, null);
         // 所有玩家抽牌，并在gamestate里更新
