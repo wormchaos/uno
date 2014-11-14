@@ -22,6 +22,16 @@ import java.util.Map;
  */
 public class BeanUtil {
 
+    /**
+     * 
+     * 功能描述: <br>
+     * bean转map
+     *
+     * @param source
+     * @param target
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
     public static <T> void copyProperties(T source, Map<String, Object> target) {
         Class<?> clazz = source.getClass();
         Field fields[] = clazz.getDeclaredFields();
